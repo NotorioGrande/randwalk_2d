@@ -50,8 +50,17 @@ class Walker:
         self.time+=1
     #  retorna o array [x, y, tempo]
     def simulate(self):
+
+        f = open("walk.txt", "w")
+        
+        #escreve a posição inicial no arquivo
+        f.write(str(self.pos[0]) + "\t" + str(self.pos[1]) + "\n")
         while (abs(self.pos[0]) != self.size and abs(self.pos[1]) != self.size):
             self.walk()
+            #escreve a posição de Walker a cada iteração
+            f.write(str(self.pos[0]) + "\t" + str(self.pos[1]) + "\n")
+        f.close()
+        
         return [self.pos[0], self.pos[1], self.time]
 
 
