@@ -67,7 +67,7 @@ class Walker:
             y_pos.append(self.pos[1])
         
         #retorna os arrays e o tempo decorrido
-        return self.pos[0], self.pos[1], self.time
+        return x_pos, y_pos, self.time
 
 
 #seeds usadas: 127, (OUTRAS AQUI)
