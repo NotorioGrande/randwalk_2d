@@ -1,4 +1,6 @@
 import random
+import matplotlib.pyplot as plt
+
 # classe da particula
 class Walker:
     #alpha é alpha
@@ -50,19 +52,39 @@ class Walker:
         self.time+=1
     #  retorna o array [x, y, tempo]
     def simulate(self):
-
-        f = open("walk.txt", "w")
+        #arrays de posição de Walker para cada iteração
+        x_pos = []
+        y_pos = []
         
-        #escreve a posição inicial no arquivo
-        f.write(str(self.pos[0]) + "\t" + str(self.pos[1]) + "\n")
+        #escreve a posição inicial no array
+        x_pos.append(self.pos[0])
+        y_pos.append(self.pos[1])
         while (abs(self.pos[0]) != self.size and abs(self.pos[1]) != self.size):
             self.walk()
+
             #escreve a posição de Walker a cada iteração
-            f.write(str(self.pos[0]) + "\t" + str(self.pos[1]) + "\n")
-        f.close()
+            x_pos.append(self.pos[0])
+            y_pos.append(self.pos[1])
         
-        return [self.pos[0], self.pos[1], self.time]
+        #retorna os arrays e o tempo decorrido
+        return self.pos[0], self.pos[1], self.time
 
 
-a1 = Walker(0.25, 10)
-print(a1.simulate())
+#seeds usadas: 127, (OUTRAS AQUI)
+#random.seed(127)
+
+#cria um Walker com alpha e L definidos
+a1 = Walker(0.1, 10)
+x_range, y_range, runtime = a1.simulate()
+
+#array[runtime] == posição final de a1
+print("Final position: (", x_range[runtime], "," , y_range[runtime], ")", "Time: ", runtime)
+
+#cria um gráfico para visualizar a caminhada de a1
+fig, randwalk = plt.subplots()
+
+#abaixo seta o título, faz o plot da caminhada e seta os limites do gráfico
+plt.title("2D random walk")
+randwalk.plot(x_range, y_range)
+randwalk.set(xlim = (-11,11), ylim = (-11,11))
+plt.show()
